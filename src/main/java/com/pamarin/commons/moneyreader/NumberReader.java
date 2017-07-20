@@ -11,6 +11,6 @@ package com.pamarin.commons.moneyreader;
  */
 public interface NumberReader {
 
-    String reader(Integer number);
+    String read(Integer number);
 
 }

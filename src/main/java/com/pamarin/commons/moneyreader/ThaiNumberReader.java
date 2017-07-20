@@ -15,7 +15,7 @@ public class ThaiNumberReader implements NumberReader {
     private final String LEVEL[] = {"", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน"};
 
     @Override
-    public String reader(Integer number) {
+    public String read(Integer number) {
         if (number == null) {
             throw new NullPointerException("required number.");
         }
