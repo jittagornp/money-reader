@@ -11,8 +11,8 @@ package com.pamarin.commons.moneyreader;
  */
 public class ThaiNumberReader implements NumberReader {
 
-    private final String NUMBER[] = {"ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"};
-    private final String LEVEL[] = {"", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน"};
+    private static final String NUMBER[] = {"ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"};
+    private static final String LEVEL[] = {"", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน"};
 
     @Override
     public String read(Integer number) {
@@ -42,54 +42,26 @@ public class ThaiNumberReader implements NumberReader {
             level = level + 1;
         }
 
-        Output output = new Output();
-        output.setNumber(number);
-        output.setLevel(level);
-        output.setNumberText(NUMBER[number]);
-        output.setLevelText(LEVEL[level]);
-        return output;
+        return new Output(number, level);
     }
 
     private static class Output {
 
-        private Integer number;
+        private final Integer number;
 
-        private Integer level;
+        private final Integer level;
 
-        private String numberText;
-
-        private String levelText;
+        public Output(Integer number, Integer level) {
+            this.number = number;
+            this.level = level;
+        }
 
         public Integer getNumber() {
             return number;
         }
 
-        public void setNumber(Integer number) {
-            this.number = number;
-        }
-
         public Integer getLevel() {
             return level;
-        }
-
-        public void setLevel(Integer level) {
-            this.level = level;
-        }
-
-        public String getNumberText() {
-            return numberText;
-        }
-
-        public void setNumberText(String numberText) {
-            this.numberText = numberText;
-        }
-
-        public String getLevelText() {
-            return levelText;
-        }
-
-        public void setLevelText(String levelText) {
-            this.levelText = levelText;
         }
 
         public double getValue() {
@@ -104,14 +76,14 @@ public class ThaiNumberReader implements NumberReader {
             }
 
             if (level == 1 && number == 1) {
-                return levelText;
+                return LEVEL[level];
             }
 
             if (level == 1 && number == 2) {
-                return "ยี่" + levelText;
+                return "ยี่" + LEVEL[level];
             }
 
-            return numberText + levelText;
+            return NUMBER[number] + LEVEL[level];
         }
 
     }
