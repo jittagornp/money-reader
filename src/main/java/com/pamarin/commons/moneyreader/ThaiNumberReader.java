@@ -42,7 +42,7 @@ public class ThaiNumberReader implements NumberReader {
                     return "เอ็ด";
                 }
 
-                return readText(BigDecimal.valueOf(keyPair.getNumber()))
+                return toText(BigDecimal.valueOf(keyPair.getNumber()))
                         + buildLevelText(keyPair.getLevel());
             }
         }.read(number);
@@ -57,7 +57,7 @@ public class ThaiNumberReader implements NumberReader {
     }
 
     //อ่านค่า Level หน่วย ถึง แสน
-    private String readText(BigDecimal number) {
+    private String toText(BigDecimal number) {
         return new AbstractThaiNumberReader() {
 
             @Override
