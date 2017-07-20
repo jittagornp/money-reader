@@ -4,12 +4,8 @@
  * and open the template in the editor.
  */
 
-import com.pamarin.commons.moneyreader.NumberReader;
 import com.pamarin.commons.moneyreader.ThaiNumberReader;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -102,7 +98,7 @@ public class ThaiNumberReaderTest {
 
         assertEquals(expected, output);
     }
-    
+
     @Test
     public void shouldBeหนึ่งร้อยสิบเอ็ด_whenInputIs111() {
 
@@ -112,7 +108,7 @@ public class ThaiNumberReaderTest {
 
         assertEquals(expected, output);
     }
-    
+
     @Test
     public void shouldBeหนึ่งพันเอ็ด_whenInputIs1001() {
 
@@ -122,7 +118,7 @@ public class ThaiNumberReaderTest {
 
         assertEquals(expected, output);
     }
-    
+
     @Test
     public void shouldBeสามหมื่นหนึ่งพันหกร้อยเอ็ด_whenInputIs31601() {
 
@@ -132,7 +128,7 @@ public class ThaiNumberReaderTest {
 
         assertEquals(expected, output);
     }
-    
+
     @Test
     public void shouldBeหนึ่งพันสิบเอ็ด_whenInputIs1011() {
 
@@ -219,6 +215,96 @@ public class ThaiNumberReaderTest {
         Integer input = 182695;
         String output = reader.read(input);
         String expected = "หนึ่งแสนแปดหมื่นสองพันหกร้อยเก้าสิบห้า";
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void shouldBeหนึ่งล้าน_whenInputIs1000000() {
+
+        Integer input = 1000000;
+        String output = reader.read(input);
+        String expected = "หนึ่งล้าน";
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void shouldBeหนึ่งล้านเอ็ด_whenInputIs1000001() {
+
+        Integer input = 1000001;
+        String output = reader.read(input);
+        String expected = "หนึ่งล้านเอ็ด";
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void shouldBeหนึ่งล้านสอง_whenInputIs1000002() {
+
+        Integer input = 1000002;
+        String output = reader.read(input);
+        String expected = "หนึ่งล้านสอง";
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void shouldBeหนึ่งล้านสิบเอ็ด_whenInputIs1000011() {
+
+        Integer input = 1000011;
+        String output = reader.read(input);
+        String expected = "หนึ่งล้านสิบเอ็ด";
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void shouldBeหนึ่งล้านเจ็ดแสนสามหมื่นสามพันสี่ร้อยยี่สิบเอ็ด_whenInputIs1733421() {
+
+        Integer input = 1733421;
+        String output = reader.read(input);
+        String expected = "หนึ่งล้านเจ็ดแสนสามหมื่นสามพันสี่ร้อยยี่สิบเอ็ด";
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void shouldBeสิบเอ็ดล้านสามสิบสาม_whenInputIs11000033() {
+
+        Integer input = 11000033;
+        String output = reader.read(input);
+        String expected = "สิบเอ็ดล้านสามสิบสาม";
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void shouldBeยี่สิบเอ็ดล้านสามสิบสาม_whenInputIs21000033() {
+
+        Integer input = 21000033;
+        String output = reader.read(input);
+        String expected = "ยี่สิบเอ็ดล้านสามสิบสาม";
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void shouldBeยี่สิบเอ็ดล้านเอ็ด_whenInputIs21000001() {
+
+        Integer input = 21000001;
+        String output = reader.read(input);
+        String expected = "ยี่สิบเอ็ดล้านเอ็ด";
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void shouldBeสามร้อยห้าสิบล้าน_whenInputIs350000000() {
+
+        Integer input = 350000000;
+        String output = reader.read(input);
+        String expected = "สามร้อยห้าสิบล้าน";
 
         assertEquals(expected, output);
     }

@@ -20,6 +20,29 @@ public class ThaiNumberReader implements NumberReader {
             throw new NullPointerException("required number.");
         }
 
+        int top = number / million();
+        if (top > 0) {
+            String text = readMillionText(top) + "ล้าน";
+            int result = number - top * million();
+            if (result > 0) {
+                if (result == 1) {
+                    text = text + "เอ็ด";
+                } else {
+                    text = text + readMillionText(result);
+                }
+            }
+
+            return text;
+        }
+
+        return readMillionText(number);
+    }
+
+    private int million() {
+        return (int) Math.pow(10L, 6);
+    }
+
+    private String readMillionText(Integer number) {
         if (number < 10) {
             return NUMBER[number];
         }
