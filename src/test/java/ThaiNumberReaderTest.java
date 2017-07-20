@@ -94,11 +94,51 @@ public class ThaiNumberReaderTest {
     }
 
     @Test
-    public void shouldBeสิบหนึ่ง_whenInputIs11() {
+    public void shouldBeสิบเอ็ด_whenInputIs11() {
 
         Integer input = 11;
         String output = reader.read(input);
-        String expected = "สิบหนึ่ง";
+        String expected = "สิบเอ็ด";
+
+        assertEquals(expected, output);
+    }
+    
+    @Test
+    public void shouldBeหนึ่งร้อยสิบเอ็ด_whenInputIs111() {
+
+        Integer input = 111;
+        String output = reader.read(input);
+        String expected = "หนึ่งร้อยสิบเอ็ด";
+
+        assertEquals(expected, output);
+    }
+    
+    @Test
+    public void shouldBeหนึ่งพันเอ็ด_whenInputIs1001() {
+
+        Integer input = 1001;
+        String output = reader.read(input);
+        String expected = "หนึ่งพันเอ็ด";
+
+        assertEquals(expected, output);
+    }
+    
+    @Test
+    public void shouldBeสามหมื่นหนึ่งพันหกร้อยเอ็ด_whenInputIs31601() {
+
+        Integer input = 31601;
+        String output = reader.read(input);
+        String expected = "สามหมื่นหนึ่งพันหกร้อยเอ็ด";
+
+        assertEquals(expected, output);
+    }
+    
+    @Test
+    public void shouldBeหนึ่งพันสิบเอ็ด_whenInputIs1011() {
+
+        Integer input = 1011;
+        String output = reader.read(input);
+        String expected = "หนึ่งพันสิบเอ็ด";
 
         assertEquals(expected, output);
     }

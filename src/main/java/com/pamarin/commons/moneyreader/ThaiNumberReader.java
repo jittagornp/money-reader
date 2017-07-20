@@ -99,6 +99,10 @@ public class ThaiNumberReader implements NumberReader {
         @Override
         public String toString() {
 
+            if (level == 0 && number == 1) {
+                return "เอ็ด";
+            }
+
             if (level == 1 && number == 1) {
                 return levelText;
             }
