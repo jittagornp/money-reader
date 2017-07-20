@@ -28,7 +28,7 @@ public class ThaiNumberReader implements NumberReader {
         do {
             Output output = readText(number);
             result.append(output.toString());
-            number = (int) (number % output.getPower());
+            number = (int) (number % output.getValue());
         } while (number > 0);
 
         return result.toString();
@@ -92,8 +92,8 @@ public class ThaiNumberReader implements NumberReader {
             this.levelText = levelText;
         }
 
-        public double getPower() {
-            return Math.pow(10L, level);
+        public double getValue() {
+            return number * Math.pow(10L, level);
         }
 
         @Override
