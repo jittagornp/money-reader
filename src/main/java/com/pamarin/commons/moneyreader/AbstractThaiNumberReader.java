@@ -16,7 +16,7 @@ public abstract class AbstractThaiNumberReader {
     private final String NUMBER[] = {"ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"};
     private final String LEVEL[] = {"", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน"};
 
-    protected abstract String asString(KeyPair output);
+    protected abstract String asString(KeyPair keyPair);
 
     protected abstract BigDecimal getBaseValue();
 
@@ -28,9 +28,9 @@ public abstract class AbstractThaiNumberReader {
         return LEVEL[level];
     }
 
-    private BigDecimal getLatestValue(KeyPair output) {
-        return new BigDecimal(output.getNumber())
-                .multiply(getBaseValue().pow(output.getLevel()));
+    private BigDecimal getLatestValue(KeyPair keyPair) {
+        return new BigDecimal(keyPair.getNumber())
+                .multiply(getBaseValue().pow(keyPair.getLevel()));
     }
 
     private boolean isMoreThanZero(BigDecimal number) {
