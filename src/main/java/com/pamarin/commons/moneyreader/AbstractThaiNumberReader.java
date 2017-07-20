@@ -18,7 +18,7 @@ public abstract class AbstractThaiNumberReader {
 
     protected abstract String asString(KeyPair output);
 
-    protected abstract BigDecimal getLevelValue();
+    protected abstract BigDecimal getBaseValue();
 
     protected String getNumberText(int number) {
         return NUMBER[number];
@@ -30,7 +30,7 @@ public abstract class AbstractThaiNumberReader {
 
     private BigDecimal getLatestValue(KeyPair output) {
         return new BigDecimal(output.getNumber())
-                .multiply(getLevelValue().pow(output.getLevel()));
+                .multiply(getBaseValue().pow(output.getLevel()));
     }
 
     private boolean isMoreThanZero(BigDecimal number) {
@@ -60,7 +60,7 @@ public abstract class AbstractThaiNumberReader {
         BigDecimal result = number;
         int level = 0;
         //result = result / 10^x > 0
-        while (isMoreThanZero(result = removeDecimal(result.divide(getLevelValue())))) {
+        while (isMoreThanZero(result = removeDecimal(result.divide(getBaseValue())))) {
             number = result;
             level = level + 1;
         }

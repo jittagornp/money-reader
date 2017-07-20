@@ -13,6 +13,9 @@ import java.math.BigDecimal;
  */
 public class ThaiNumberReader implements NumberReader {
 
+    //1 ล้าน
+    private final BigDecimal MILLION = BigDecimal.TEN.pow(6);
+
     @Override
     public String read(Integer number) {
         return read(number == null ? null : new BigDecimal(number));
@@ -28,8 +31,8 @@ public class ThaiNumberReader implements NumberReader {
         return new AbstractThaiNumberReader() {
 
             @Override
-            protected BigDecimal getLevelValue() {
-                return BigDecimal.TEN.pow(6);
+            protected BigDecimal getBaseValue() {
+                return MILLION;
             }
 
             @Override
@@ -58,7 +61,7 @@ public class ThaiNumberReader implements NumberReader {
         return new AbstractThaiNumberReader() {
 
             @Override
-            protected BigDecimal getLevelValue() {
+            protected BigDecimal getBaseValue() {
                 return BigDecimal.TEN;
             }
 
