@@ -5,6 +5,7 @@
  */
 
 import com.pamarin.commons.moneyreader.ThaiNumberReader;
+import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -305,6 +306,26 @@ public class ThaiNumberReaderTest {
         Integer input = 350000000;
         String output = reader.read(input);
         String expected = "สามร้อยห้าสิบล้าน";
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void shouldBeห้าพันห้าร้อยล้าน_whenInputIs5500000000() {
+
+        BigDecimal input = new BigDecimal(5500000000L);
+        String output = reader.read(input);
+        String expected = "ห้าพันห้าร้อยล้าน";
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void shouldBeสองแสนหนึ่งร้อยล้านแปดพันสองร้อยสิบสี่_whenInputIs200100008214() {
+
+        BigDecimal input = new BigDecimal(200100008214L);
+        String output = reader.read(input);
+        String expected = "สองแสนหนึ่งร้อยล้านแปดพันสองร้อยสิบสี่";
 
         assertEquals(expected, output);
     }

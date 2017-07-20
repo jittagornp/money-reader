@@ -5,6 +5,8 @@
  */
 package com.pamarin.commons.moneyreader;
 
+import java.math.BigDecimal;
+
 /**
  * @author jittagornp <http://jittagornp.me>
  * create : 2017/07/20
@@ -16,14 +18,20 @@ public class ThaiNumberReader implements NumberReader {
 
     @Override
     public String read(Integer number) {
+        return read(number == null ? null : new BigDecimal(number));
+    }
+
+    @Override
+    public String read(BigDecimal number) {
         if (number == null) {
             throw new NullPointerException("required number.");
         }
 
-        int top = number / million();
+        BigDecimal million = BigDecimal.valueOf(Math.pow(10L, 6));
+        int top = number.divide(million).intValue();
         if (top > 0) {
             String text = readMillionText(top) + "ล้าน";
-            int result = number - top * million();
+            int result = number.subtract(million.multiply(BigDecimal.valueOf(top))).intValue();
             if (result > 0) {
                 if (result == 1) {
                     text = text + "เอ็ด";
@@ -35,14 +43,10 @@ public class ThaiNumberReader implements NumberReader {
             return text;
         }
 
-        return readMillionText(number);
+        return readMillionText(number.intValue());
     }
 
-    private int million() {
-        return (int) Math.pow(10L, 6);
-    }
-
-    private String readMillionText(Integer number) {
+    private String readMillionText(int number) {
         if (number < 10) {
             return NUMBER[number];
         }
@@ -57,7 +61,7 @@ public class ThaiNumberReader implements NumberReader {
         return result.toString();
     }
 
-    private Output readText(Integer number) {
+    private Output readText(int number) {
         int result = number;
         int level = 0;
         while ((result = result / 10) > 0) {
@@ -70,20 +74,20 @@ public class ThaiNumberReader implements NumberReader {
 
     private static class Output {
 
-        private final Integer number;
+        private final int number;
 
-        private final Integer level;
+        private final int level;
 
-        public Output(Integer number, Integer level) {
+        public Output(int number, int level) {
             this.number = number;
             this.level = level;
         }
 
-        public Integer getNumber() {
+        public int getNumber() {
             return number;
         }
 
-        public Integer getLevel() {
+        public int getLevel() {
             return level;
         }
 
