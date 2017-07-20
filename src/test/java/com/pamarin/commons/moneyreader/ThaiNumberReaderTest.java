@@ -1,9 +1,10 @@
+package com.pamarin.commons.moneyreader;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import com.pamarin.commons.moneyreader.ThaiNumberReader;
 import java.math.BigDecimal;
 import org.junit.Before;
@@ -329,4 +330,25 @@ public class ThaiNumberReaderTest {
 
         assertEquals(expected, output);
     }
+
+    @Test
+    public void shouldBeหนึ่งล้านล้าน_whenInputIs1000000000000() {
+
+        BigDecimal input = new BigDecimal(1000000000000L);
+        String output = reader.read(input);
+        String expected = "หนึ่งล้านล้าน";
+
+        assertEquals(expected, output);
+    }
+
+    @Test
+    public void shouldBeหนึ่งล้านล้านหนึ่งล้าน_whenInputIs1000001000000() {
+
+        BigDecimal input = new BigDecimal(1000001000000L);
+        String output = reader.read(input);
+        String expected = "หนึ่งล้านล้านหนึ่งล้าน";
+
+        assertEquals(expected, output);
+    }
+
 }
