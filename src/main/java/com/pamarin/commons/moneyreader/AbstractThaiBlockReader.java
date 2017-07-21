@@ -18,7 +18,7 @@ public abstract class AbstractThaiBlockReader {
 
     protected abstract String asString(KeyPair keyPair);
 
-    protected abstract BigInteger getBaseValue();
+    protected abstract BigInteger getBaseNumber();
 
     protected String getNumberText(int number) {
         return NUMBER[number];
@@ -29,9 +29,9 @@ public abstract class AbstractThaiBlockReader {
     }
 
     //A * 10^x
-    private BigInteger getLatestValue(KeyPair keyPair) {
+    private BigInteger getBaseValue(KeyPair keyPair) {
         return BigInteger.valueOf(keyPair.getNumber())
-                .multiply(getBaseValue().pow(keyPair.getLevel()));
+                .multiply(getBaseNumber().pow(keyPair.getLevel()));
     }
 
     private boolean isMoreThanZero(BigInteger number) {
@@ -51,7 +51,7 @@ public abstract class AbstractThaiBlockReader {
         do {
             KeyPair keyPair = map(number);
             result.append(asString(keyPair));
-            number = number.mod(getLatestValue(keyPair));//number = number % latestValue
+            number = number.mod(getBaseValue(keyPair));//number = number % baseValue
         } while (isMoreThanZero(number));
 
         return result.toString();
@@ -61,7 +61,7 @@ public abstract class AbstractThaiBlockReader {
         BigInteger result = number;
         int level = 0;
         //result = result / 10^x > 0
-        while (isMoreThanZero(result = result.divide(getBaseValue()))) {
+        while (isMoreThanZero(result = result.divide(getBaseNumber()))) {
             number = result;
             level = level + 1;
         }
