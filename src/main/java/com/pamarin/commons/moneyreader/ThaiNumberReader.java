@@ -13,8 +13,7 @@ import java.math.BigInteger;
  */
 public class ThaiNumberReader implements NumberReader {
 
-    //1 ล้าน
-    private final BigInteger MILLION = BigInteger.TEN.pow(6);
+    private final MillionReader millionReader = new MillionReader();
 
     @Override
     public String read(Integer number) {
@@ -27,63 +26,7 @@ public class ThaiNumberReader implements NumberReader {
             throw new NullPointerException("required number.");
         }
 
-        //อ่านค่า Level ล้าน, ล้านล้าน ขึ้นไป    
-        return new AbstractThaiNumberReader() {
-
-            @Override
-            protected BigInteger getBaseValue() {
-                return MILLION;
-            }
-
-            @Override
-            protected String asString(KeyPair keyPair) {
-
-                if (isOne(keyPair)) {
-                    return "เอ็ด";
-                }
-
-                return toText(BigInteger.valueOf(keyPair.getNumber()))
-                        + buildLevelText(keyPair.getLevel());
-            }
-        }.read(number);
-    }
-
-    private String buildLevelText(int level) {
-        StringBuilder text = new StringBuilder();
-        for (int i = 0; i < level; i++) {
-            text.append("ล้าน");
-        }
-        return text.toString();
-    }
-
-    //อ่านค่า Level หน่วย ถึง แสน
-    private String toText(BigInteger number) {
-        return new AbstractThaiNumberReader() {
-
-            @Override
-            protected BigInteger getBaseValue() {
-                return BigInteger.TEN;
-            }
-
-            @Override
-            protected String asString(KeyPair keyPair) {
-
-                if (isOne(keyPair)) {
-                    return "เอ็ด";
-                }
-
-                if (isTen(keyPair)) {
-                    return "สิบ";
-                }
-
-                if (isTwenty(keyPair)) {
-                    return "ยี่สิบ";
-                }
-
-                return getNumberText(keyPair.getNumber())
-                        + getLevelText(keyPair.getLevel());
-            }
-        }.read(number);
+        return millionReader.read(number);
     }
 
     private boolean isOne(KeyPair keyPair) {
@@ -99,5 +42,67 @@ public class ThaiNumberReader implements NumberReader {
     private boolean isTwenty(KeyPair keyPair) {
         return keyPair.getLevel() == 1
                 && keyPair.getNumber() == 2;
+    }
+
+    //อ่านค่า Level หน่วย ถึง แสน
+    private class NormalReader extends AbstractThaiNumberReader {
+
+        @Override
+        protected BigInteger getBaseValue() {
+            return BigInteger.TEN;
+        }
+
+        @Override
+        protected String asString(KeyPair keyPair) {
+
+            if (isOne(keyPair)) {
+                return "เอ็ด";
+            }
+
+            if (isTen(keyPair)) {
+                return "สิบ";
+            }
+
+            if (isTwenty(keyPair)) {
+                return "ยี่สิบ";
+            }
+
+            return getNumberText(keyPair.getNumber())
+                    + getLevelText(keyPair.getLevel());
+        }
+    }
+
+    //อ่านค่า Level ล้าน, ล้านล้าน ขึ้นไป    
+    private class MillionReader extends AbstractThaiNumberReader {
+
+        //1 ล้าน
+        private final BigInteger MILLION = BigInteger.TEN.pow(6);
+
+        private final NormalReader normalReader = new NormalReader();
+
+        @Override
+        protected BigInteger getBaseValue() {
+            return MILLION;
+        }
+
+        @Override
+        protected String asString(KeyPair keyPair) {
+
+            if (isOne(keyPair)) {
+                return "เอ็ด";
+            }
+
+            return normalReader.read(BigInteger.valueOf(keyPair.getNumber()))
+                    + buildLevelText(keyPair.getLevel());
+        }
+
+        private String buildLevelText(int level) {
+            StringBuilder text = new StringBuilder();
+            for (int i = 0; i < level; i++) {
+                text.append("ล้าน");
+            }
+            return text.toString();
+        }
+
     }
 }
