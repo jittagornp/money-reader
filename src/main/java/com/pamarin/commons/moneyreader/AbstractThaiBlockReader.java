@@ -11,7 +11,7 @@ import java.math.BigInteger;
  * @author jittagornp <http://jittagornp.me>
  * create : 2017/07/21
  */
-public abstract class AbstractThaiNumberReader {
+public abstract class AbstractThaiBlockReader {
 
     private final String NUMBER[] = {"ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"};
     private final String LEVEL[] = {"", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน"};

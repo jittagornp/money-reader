@@ -45,7 +45,7 @@ public class ThaiNumberReader implements NumberReader {
     }
 
     //อ่านค่า Level หน่วย ถึง แสน
-    private class NormalReader extends AbstractThaiNumberReader {
+    private class NormalReader extends AbstractThaiBlockReader {
 
         @Override
         protected BigInteger getBaseValue() {
@@ -73,7 +73,7 @@ public class ThaiNumberReader implements NumberReader {
     }
 
     //อ่านค่า Level ล้าน, ล้านล้าน ขึ้นไป    
-    private class MillionReader extends AbstractThaiNumberReader {
+    private class MillionReader extends AbstractThaiBlockReader {
 
         //1 ล้าน
         private final BigInteger MILLION = BigInteger.TEN.pow(6);
