@@ -28,6 +28,7 @@ public abstract class AbstractThaiNumberReader {
         return LEVEL[level];
     }
 
+    //A * 10^x
     private BigInteger getLatestValue(KeyPair keyPair) {
         return BigInteger.valueOf(keyPair.getNumber())
                 .multiply(getBaseValue().pow(keyPair.getLevel()));

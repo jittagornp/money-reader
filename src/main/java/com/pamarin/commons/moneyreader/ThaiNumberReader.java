@@ -49,11 +49,11 @@ public class ThaiNumberReader implements NumberReader {
     }
 
     private String buildLevelText(int level) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (int i = 0; i < level; i++) {
-            text = text + "ล้าน";
+            text.append("ล้าน");
         }
-        return text;
+        return text.toString();
     }
 
     //อ่านค่า Level หน่วย ถึง แสน
