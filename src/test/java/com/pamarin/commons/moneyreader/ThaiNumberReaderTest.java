@@ -6,7 +6,7 @@ package com.pamarin.commons.moneyreader;
  * and open the template in the editor.
  */
 import com.pamarin.commons.moneyreader.ThaiNumberReader;
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -314,7 +314,7 @@ public class ThaiNumberReaderTest {
     @Test
     public void shouldBeห้าพันห้าร้อยล้าน_whenInputIs5500000000() {
 
-        BigDecimal input = new BigDecimal(5500000000L);
+        BigInteger input = BigInteger.valueOf(5500000000L);
         String output = reader.read(input);
         String expected = "ห้าพันห้าร้อยล้าน";
 
@@ -324,7 +324,7 @@ public class ThaiNumberReaderTest {
     @Test
     public void shouldBeสองแสนหนึ่งร้อยล้านแปดพันสองร้อยสิบสี่_whenInputIs200100008214() {
 
-        BigDecimal input = new BigDecimal(200100008214L);
+        BigInteger input = BigInteger.valueOf(200100008214L);
         String output = reader.read(input);
         String expected = "สองแสนหนึ่งร้อยล้านแปดพันสองร้อยสิบสี่";
 
@@ -334,7 +334,7 @@ public class ThaiNumberReaderTest {
     @Test
     public void shouldBeหนึ่งล้านล้าน_whenInputIs1000000000000() {
 
-        BigDecimal input = new BigDecimal(1000000000000L);
+        BigInteger input = BigInteger.valueOf(1000000000000L);
         String output = reader.read(input);
         String expected = "หนึ่งล้านล้าน";
 
@@ -344,7 +344,7 @@ public class ThaiNumberReaderTest {
     @Test
     public void shouldBeหนึ่งล้านล้านหนึ่งล้าน_whenInputIs1000001000000() {
 
-        BigDecimal input = new BigDecimal(1000001000000L);
+        BigInteger input = BigInteger.valueOf(1000001000000L);
         String output = reader.read(input);
         String expected = "หนึ่งล้านล้านหนึ่งล้าน";
 

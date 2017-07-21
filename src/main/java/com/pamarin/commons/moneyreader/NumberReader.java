@@ -5,7 +5,7 @@
  */
 package com.pamarin.commons.moneyreader;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 /**
  * @author jittagornp <http://jittagornp.me>
@@ -15,6 +15,6 @@ public interface NumberReader {
 
     String read(Integer number);
     
-    String read(BigDecimal number);
+    String read(BigInteger number);
 
 }

@@ -5,7 +5,7 @@
  */
 package com.pamarin.commons.moneyreader;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 /**
  * @author jittagornp <http://jittagornp.me>
@@ -18,7 +18,7 @@ public abstract class AbstractThaiNumberReader {
 
     protected abstract String asString(KeyPair keyPair);
 
-    protected abstract BigDecimal getBaseValue();
+    protected abstract BigInteger getBaseValue();
 
     protected String getNumberText(int number) {
         return NUMBER[number];
@@ -28,20 +28,20 @@ public abstract class AbstractThaiNumberReader {
         return LEVEL[level];
     }
 
-    private BigDecimal getLatestValue(KeyPair keyPair) {
-        return new BigDecimal(keyPair.getNumber())
+    private BigInteger getLatestValue(KeyPair keyPair) {
+        return BigInteger.valueOf(keyPair.getNumber())
                 .multiply(getBaseValue().pow(keyPair.getLevel()));
     }
 
-    private boolean isMoreThanZero(BigDecimal number) {
-        return number.compareTo(BigDecimal.ZERO) > 0;
+    private boolean isMoreThanZero(BigInteger number) {
+        return number.compareTo(BigInteger.ZERO) > 0;
     }
 
-    private boolean isLessThanTen(BigDecimal number) {
-        return number.compareTo(BigDecimal.TEN) < 0;
+    private boolean isLessThanTen(BigInteger number) {
+        return number.compareTo(BigInteger.TEN) < 0;
     }
 
-    public String read(BigDecimal number) {
+    public String read(BigInteger number) {
         if (isLessThanTen(number)) {
             return getNumberText(number.intValue());
         }
@@ -50,25 +50,21 @@ public abstract class AbstractThaiNumberReader {
         do {
             KeyPair keyPair = map(number);
             result.append(asString(keyPair));
-            number = number.remainder(getLatestValue(keyPair));//number = number % latestValue
+            number = number.mod(getLatestValue(keyPair));//number = number % latestValue
         } while (isMoreThanZero(number));
 
         return result.toString();
     }
 
-    private KeyPair map(BigDecimal number) {
-        BigDecimal result = number;
+    private KeyPair map(BigInteger number) {
+        BigInteger result = number;
         int level = 0;
         //result = result / 10^x > 0
-        while (isMoreThanZero(result = removeDecimal(result.divide(getBaseValue())))) {
+        while (isMoreThanZero(result = result.divide(getBaseValue()))) {
             number = result;
             level = level + 1;
         }
 
         return new KeyPair(number.intValue(), level);
-    }
-
-    private BigDecimal removeDecimal(BigDecimal number) {
-        return number.setScale(0, BigDecimal.ROUND_DOWN);
     }
 }

@@ -5,7 +5,7 @@
  */
 package com.pamarin.commons.moneyreader;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 /**
  * @author jittagornp <http://jittagornp.me>
@@ -14,15 +14,15 @@ import java.math.BigDecimal;
 public class ThaiNumberReader implements NumberReader {
 
     //1 ล้าน
-    private final BigDecimal MILLION = BigDecimal.TEN.pow(6);
+    private final BigInteger MILLION = BigInteger.TEN.pow(6);
 
     @Override
     public String read(Integer number) {
-        return read(number == null ? null : new BigDecimal(number));
+        return read(number == null ? null : BigInteger.valueOf(number));
     }
 
     @Override
-    public String read(BigDecimal number) {
+    public String read(BigInteger number) {
         if (number == null) {
             throw new NullPointerException("required number.");
         }
@@ -31,7 +31,7 @@ public class ThaiNumberReader implements NumberReader {
         return new AbstractThaiNumberReader() {
 
             @Override
-            protected BigDecimal getBaseValue() {
+            protected BigInteger getBaseValue() {
                 return MILLION;
             }
 
@@ -42,7 +42,7 @@ public class ThaiNumberReader implements NumberReader {
                     return "เอ็ด";
                 }
 
-                return toText(BigDecimal.valueOf(keyPair.getNumber()))
+                return toText(BigInteger.valueOf(keyPair.getNumber()))
                         + buildLevelText(keyPair.getLevel());
             }
         }.read(number);
@@ -57,12 +57,12 @@ public class ThaiNumberReader implements NumberReader {
     }
 
     //อ่านค่า Level หน่วย ถึง แสน
-    private String toText(BigDecimal number) {
+    private String toText(BigInteger number) {
         return new AbstractThaiNumberReader() {
 
             @Override
-            protected BigDecimal getBaseValue() {
-                return BigDecimal.TEN;
+            protected BigInteger getBaseValue() {
+                return BigInteger.TEN;
             }
 
             @Override
