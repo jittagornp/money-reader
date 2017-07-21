@@ -5,7 +5,6 @@ package com.pamarin.commons.moneyreader;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import com.pamarin.commons.moneyreader.ThaiNumberReader;
 import java.math.BigInteger;
 import org.junit.Before;
 import org.junit.Test;
