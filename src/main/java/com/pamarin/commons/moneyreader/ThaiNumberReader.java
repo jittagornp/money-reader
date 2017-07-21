@@ -38,7 +38,7 @@ public class ThaiNumberReader implements NumberReader {
             @Override
             protected String asString(KeyPair keyPair) {
 
-                if (keyPair.getLevel() == 0 && keyPair.getNumber() == 1) {
+                if (isOne(keyPair)) {
                     return "เอ็ด";
                 }
 
@@ -68,21 +68,36 @@ public class ThaiNumberReader implements NumberReader {
             @Override
             protected String asString(KeyPair keyPair) {
 
-                if (keyPair.getLevel() == 0 && keyPair.getNumber() == 1) {
+                if (isOne(keyPair)) {
                     return "เอ็ด";
                 }
 
-                if (keyPair.getLevel() == 1 && keyPair.getNumber() == 1) {
-                    return getLevelText(keyPair.getLevel());
+                if (isTen(keyPair)) {
+                    return "สิบ";
                 }
 
-                if (keyPair.getLevel() == 1 && keyPair.getNumber() == 2) {
-                    return "ยี่" + getLevelText(keyPair.getLevel());
+                if (isTwenty(keyPair)) {
+                    return "ยี่สิบ";
                 }
 
                 return getNumberText(keyPair.getNumber())
                         + getLevelText(keyPair.getLevel());
             }
         }.read(number);
+    }
+
+    private boolean isOne(KeyPair keyPair) {
+        return keyPair.getLevel() == 0
+                && keyPair.getNumber() == 1;
+    }
+
+    private boolean isTen(KeyPair keyPair) {
+        return keyPair.getLevel() == 1
+                && keyPair.getNumber() == 1;
+    }
+
+    private boolean isTwenty(KeyPair keyPair) {
+        return keyPair.getLevel() == 1
+                && keyPair.getNumber() == 2;
     }
 }

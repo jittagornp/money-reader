@@ -50,7 +50,7 @@ public abstract class AbstractThaiNumberReader {
         do {
             KeyPair keyPair = map(number);
             result.append(asString(keyPair));
-            number = number.remainder(getLatestValue(keyPair));//number % latestValue
+            number = number.remainder(getLatestValue(keyPair));//number = number % latestValue
         } while (isMoreThanZero(number));
 
         return result.toString();
